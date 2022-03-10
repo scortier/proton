@@ -472,7 +472,7 @@ message DeployJobSpecificationRequest {
 }
 
 message DeployJobSpecificationResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
 
     // non ack responses are more of a progress/info response
     // and not really success or failure statuses
@@ -508,7 +508,7 @@ message CheckJobSpecificationRequest {
 }
 
 message CheckJobSpecificationResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
 }
 
 message CheckJobSpecificationsRequest {
@@ -518,7 +518,7 @@ message CheckJobSpecificationsRequest {
 }
 
 message CheckJobSpecificationsResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
 
     // non ack responses are more of a progress/info response
     // and not really success or failure statuses
@@ -534,7 +534,7 @@ message RegisterProjectRequest {
 }
 
 message RegisterProjectResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
     string message = 2;
 }
 
@@ -544,7 +544,7 @@ message RegisterProjectNamespaceRequest {
 }
 
 message RegisterProjectNamespaceResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
     string message = 2;
 }
 
@@ -555,7 +555,7 @@ message CreateJobSpecificationRequest {
 }
 
 message CreateJobSpecificationResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
     string message = 2;
 }
 
@@ -576,7 +576,7 @@ message DeleteJobSpecificationRequest {
 }
 
 message DeleteJobSpecificationResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
     string message = 2;
 }
 
@@ -690,7 +690,7 @@ message DeployResourceSpecificationRequest {
 }
 
 message DeployResourceSpecificationResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
 
     // non ack responses are more of a progress/info response
     // and not success or failure statuses
@@ -719,7 +719,7 @@ message CreateResourceRequest {
 }
 
 message CreateResourceResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
     string message = 2;
 }
 
@@ -731,7 +731,7 @@ message ReadResourceRequest {
 }
 
 message ReadResourceResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
     string message = 2;
     ResourceSpecification resource = 3;
 }
@@ -744,7 +744,7 @@ message UpdateResourceRequest {
 }
 
 message UpdateResourceResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
     string message = 2;
 }
 
@@ -781,7 +781,7 @@ message ReplayDryRunRequest {
 }
 
 message ReplayDryRunResponse {
-    bool success = 1;
+    reserved 1; // bool success = 1
     ReplayExecutionTreeNode response = 2 [deprecated=true];
     ReplayExecutionTreeNode execution_tree = 3;
     repeated string ignored_jobs = 4;
