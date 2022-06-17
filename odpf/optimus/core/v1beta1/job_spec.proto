@@ -25,7 +25,12 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service JobSpecificationService {
-  rpc AsyncDeployAllJobSpecifications(stream AsyncDeployAllJobSpecificationsRequest) returns (AsyncDeployAllJobSpecificationsResponse) {}
+  // DeployJobSpecification schedules jobs for execution
+  // returns a stream of messages which can be used to track the progress
+  // of deployments. Message containing ack are status events other are progress
+  // events
+  // State of the world request
+  rpc DeployJobSpecification(stream DeployJobSpecificationRequest) returns (stream DeployJobSpecificationResponse) {}
 
   rpc AsyncDeployJobSpecification(AsyncDeployJobSpecificationRequest) returns (AsyncDeployJobSpecificationResponse) {
     option (google.api.http) = {
@@ -73,15 +78,29 @@ service JobSpecificationService {
   rpc GetDeployJobsStatus(GetDeployJobsStatusRequest) returns (GetDeployJobsStatusResponse) {}
 }
 
-message AsyncDeployAllJobSpecificationsRequest {
-  string project_name = 1;
+message DeployJobSpecificationRequest {
+  string project_name = 1; // unique project identifier
   repeated JobSpecification jobs = 2;
   string namespace_name = 4;
 }
 
-message AsyncDeployAllJobSpecificationsResponse {
+message DeployJobSpecificationResponse {
   bool success = 1;
-  string deployment_id = 2;
+
+  // non ack responses are more of a progress/info response
+  // and not really success or failure statuses
+  // this is deprecated and being replaced with type field
+  bool ack = 2 [deprecated=true];
+
+  // message is deprecated and being replaced with value field
+  string message = 3 [deprecated=true];
+  
+  string job_name = 4;
+
+  // response type differentiate events
+  string type = 5;
+  
+  string value = 6;
 }
 
 message AsyncDeployJobSpecificationRequest {
@@ -92,7 +111,7 @@ message AsyncDeployJobSpecificationRequest {
 
 message AsyncDeployJobSpecificationResponse {
   bool success = 1;
-  string deployment_id = 2;
+  string message = 2;
 }
 
 message GetJobSpecificationRequest {
