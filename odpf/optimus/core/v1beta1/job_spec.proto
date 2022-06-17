@@ -25,15 +25,9 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service JobSpecificationService {
-  // DeployJobSpecification schedules jobs for execution
-  // returns a stream of messages which can be used to track the progress
-  // of deployments. Message containing ack are status events other are progress
-  // events
-  // State of the world request
-  rpc DeployJobSpecification(stream DeployJobSpecificationRequest) returns (stream DeployJobSpecificationResponse) {}
+  rpc AsyncDeployAllJobSpecifications(stream AsyncDeployAllJobSpecificationsRequest) returns (AsyncDeployAllJobSpecificationsResponse) {}
 
-  // CreateJobSpecification registers a new job for a namespace which belongs to a project
-  rpc CreateJobSpecification(CreateJobSpecificationRequest) returns (CreateJobSpecificationResponse) {
+  rpc AsyncDeployJobSpecification(AsyncDeployJobSpecificationRequest) returns (AsyncDeployJobSpecificationResponse) {
     option (google.api.http) = {
       post: "/v1beta1/project/{project_name}/namespace/{namespace_name}/job"
       body: "*"
@@ -79,40 +73,26 @@ service JobSpecificationService {
   rpc GetDeployJobsStatus(GetDeployJobsStatusRequest) returns (GetDeployJobsStatusResponse) {}
 }
 
-message DeployJobSpecificationRequest {
-  string project_name = 1; // unique project identifier
+message AsyncDeployAllJobSpecificationsRequest {
+  string project_name = 1;
   repeated JobSpecification jobs = 2;
   string namespace_name = 4;
 }
 
-message DeployJobSpecificationResponse {
+message AsyncDeployAllJobSpecificationsResponse {
   bool success = 1;
-
-  // non ack responses are more of a progress/info response
-  // and not really success or failure statuses
-  // this is deprecated and being replaced with type field
-  bool ack = 2 [deprecated=true];
-
-  // message is deprecated and being replaced with value field
-  string message = 3 [deprecated=true];
-  
-  string job_name = 4;
-
-  // response type differentiate events
-  string type = 5;
-  
-  string value = 6;
+  string deployment_id = 2;
 }
 
-message CreateJobSpecificationRequest {
+message AsyncDeployJobSpecificationRequest {
   string project_name = 1;
   string namespace_name = 2;
   JobSpecification spec = 3;
 }
 
-message CreateJobSpecificationResponse {
+message AsyncDeployJobSpecificationResponse {
   bool success = 1;
-  string message = 2;
+  string deployment_id = 2;
 }
 
 message GetJobSpecificationRequest {
