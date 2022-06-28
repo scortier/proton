@@ -233,6 +233,7 @@ message JobDependency {
   string name = 1;
   string type = 2; // intra/inter/extra
   HttpDependency http_dependency = 3; // http sensor dependency
+  bool ignore = 4;                    // job should be ignored in resolution
 }
 
 message HttpDependency {
