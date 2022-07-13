@@ -521,6 +521,7 @@ message Policy {
         string provider = 1;
         google.protobuf.Value config = 2;
         map<string, string> schema = 3;
+        string account_status = 4;
     }
     IAM iam = 9;
 }
