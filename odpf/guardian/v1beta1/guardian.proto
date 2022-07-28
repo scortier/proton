@@ -60,6 +60,12 @@ service GuardianService {
         };
     }
 
+    rpc ImportAccess(ImportAccessRequest) returns (ImportAccessResponse) {
+        option (google.api.http) = {
+            post: "/v1beta1/providers/{id}/import-access"
+        };
+    }
+
     rpc ListRoles(ListRolesRequest) returns (ListRolesResponse) {
         option (google.api.http) = {
             get: "/v1beta1/providers/{id}/resources/{resource_type}/roles"
@@ -217,6 +223,14 @@ message DeleteProviderRequest {
 }
 
 message DeleteProviderResponse {}
+
+message ImportAccessRequest {
+    string id = 1;
+}
+
+message ImportAccessResponse {
+    repeated Appeal appeals = 1;
+}
 
 message ListRolesRequest {
     string id = 1;
