@@ -8,6 +8,7 @@ option go_package = "github.com/odpf/proton/assets/v1beta2;assetsv1beta2";
 
 import "odpf/assets/v1beta2/common.proto";
 
+import "odpf/assets/v1beta2/table.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
