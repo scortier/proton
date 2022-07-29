@@ -67,7 +67,7 @@ message Asset {
     google.protobuf.Timestamp update_time = 102;
 
     oneof oneof_data {
-        odpf.assets.v1beta2.table table = 10;
+        odpf.assets.v1beta2.Table table = 10;
     }
 }
 
