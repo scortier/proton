@@ -41,7 +41,7 @@ message Asset {
 
     // oneof
     oneof oneof_data {
-        odpf.assets.common.v1beta2.table table = 1;
+        odpf.assets.common.v1beta2.table table = 9;
     }
 
     // Optional: List of properties the user has.
